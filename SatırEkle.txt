@@ -1,0 +1,19 @@
+Sub SatirEkleDataSayfasinda()
+    Dim ws As Worksheet
+    Dim i As Integer
+    
+    ' "Data" sayfasını belirleyin
+    Set ws = ThisWorkbook.Sheets("Data")
+    
+    ' 26. satırdan itibaren 10 satır ekleyin
+    For i = 1 To 10
+        ws.Rows(26).Insert Shift:=xlDown
+    Next i
+End Sub
+
+
+
+
+
+
+
