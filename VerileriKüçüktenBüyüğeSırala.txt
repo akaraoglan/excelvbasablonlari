@@ -1,0 +1,14 @@
+Sub SiralaKontrol()
+    Dim wsKontrol As Worksheet
+    Dim sonSatir As Long
+    
+    ' Kontrol sayfasını tanımla
+    Set wsKontrol = ThisWorkbook.Sheets("Kontrol")
+    
+    ' A sütunundaki son dolu satırı bul
+    sonSatir = wsKontrol.Cells(wsKontrol.Rows.Count, "A").End(xlUp).Row
+    
+    ' Başlık hariç A sütunundaki verileri küçükten büyüğe sıralama
+    wsKontrol.Range("A2:A" & sonSatir).Sort Key1:=wsKontrol.Range("A2"), Order1:=xlAscending, Header:=xlNo
+End Sub
+
