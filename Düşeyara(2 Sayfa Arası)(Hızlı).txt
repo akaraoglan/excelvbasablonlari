@@ -1,0 +1,50 @@
+Sub Hızlı_Eşleşen_Verileri_Getir()
+    Dim wsData As Worksheet, wsHazirlik As Worksheet
+    Dim lastRowData As Long, lastRowHazirlik As Long
+    Dim dict As Object
+    Dim i As Long, searchValue As Variant
+    
+    ' Sayfaları tanımla
+    Set wsData = ThisWorkbook.Sheets("data")
+    Set wsHazirlik = ThisWorkbook.Sheets("Hazırlık")
+    
+    ' Son satırları bul
+    lastRowData = wsData.Cells(wsData.Rows.Count, "D").End(xlUp).Row
+    lastRowHazirlik = wsHazirlik.Cells(wsHazirlik.Rows.Count, "A").End(xlUp).Row
+    
+    ' Dictionary oluştur
+    Set dict = CreateObject("Scripting.Dictionary")
+    
+    ' Data sayfasındaki verileri Dictionary'ye ekle
+    Dim key As String, value As String
+    For i = 2 To lastRowData ' Başlık satırını atla
+        key = Trim(wsData.Cells(i, "D").value) ' Anahtar (eşleşecek değer)
+        value = wsData.Cells(i, "J").value ' Karşılık gelen değer
+        
+        ' Eğer aynı anahtar tekrar varsa, sadece ilkini al
+        If Not dict.exists(key) Then
+            dict.Add key, value
+        End If
+    Next i
+    
+    ' Hazırlık sayfasındaki her bir değeri Dictionary'de ara ve sonucu yaz
+    For i = 2 To lastRowHazirlik
+        searchValue = Trim(wsHazirlik.Cells(i, "A").value)
+        If dict.exists(searchValue) Then
+            wsHazirlik.Cells(i, "C").value = dict(searchValue) ' Eşleşen değeri yaz
+        Else
+            wsHazirlik.Cells(i, "C").value = "Bulunamadı" ' Eşleşme yoksa
+        End If
+    Next i
+    
+    ' Belleği temizle
+    Set dict = Nothing
+End Sub
+
+
+
+
+
+
+
+
