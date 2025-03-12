@@ -1,0 +1,29 @@
+Sub Verileri_Dagitenhizli()
+    On Error Resume Next
+    Dim ws As Worksheet
+    Dim deneme As Worksheet
+    Dim deneme2 As Worksheet
+    Set ws = ThisWorkbook.Sheets("data")
+    Set deneme = ThisWorkbook.Sheets("deneme")
+    Set deneme2 = ThisWorkbook.Sheets("deneme2")
+    If ws.AutoFilterMode = True Then ws.AutoFilterMode = False
+    If deneme Is Nothing Then
+        Set deneme = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        deneme.Name = "deneme"
+    End If
+    If deneme2 Is Nothing Then
+        Set deneme2 = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        deneme2.Name = "deneme2"
+    End If
+    deneme.Cells.Clear
+    deneme2.Cells.Clear
+    lastRow = ws.Cells(ws.Rows.Count, "K").End(xlUp).Row
+    ws.Range("K1:K" & lastRow).AutoFilter 1, "=MA000*", xlAnd, "<=MA0008"
+    ws.Range("A1:X" & lastRow + 1).Copy deneme.Cells(1, 1)
+    ws.AutoFilterMode = False
+    ws.Range("K1:K" & lastRow).AutoFilter 1, ">MA0008"
+    ws.Range("A1:X" & lastRow + 1).Copy deneme2.Cells(1, 1)
+    ws.AutoFilterMode = False
+    MsgBox "İşlem tamam.", vbInformation, "ExcelCozum.com"
+End Sub
+
