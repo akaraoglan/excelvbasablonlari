@@ -1,0 +1,18 @@
+Sub HamKagitFormuluUygulaVeAsagiIndir()
+
+    Dim sonSatir As Long
+    Dim i As Long
+
+    ' "Ham Kağıt" adlı sayfanın son dolu satırını bul
+    sonSatir = ThisWorkbook.Sheets("Ham Kağıt").Cells(Rows.Count, "A").End(xlUp).Row
+
+    ' E2 hücresine formülü uygula
+    ThisWorkbook.Sheets("Ham Kağıt").Range("E2").FormulaLocal = "=ÇOKETOPLA(Mamul!W:W;Mamul!J:J;'Ham Kağıt'!A2;Mamul!K:K;'Ham Kağıt'!B2;Mamul!L:L;'Ham Kağıt'!C2)"
+
+    ' Formülü son satıra kadar aşağı indir
+    ThisWorkbook.Sheets("Ham Kağıt").Range("E2").AutoFill Destination:=ThisWorkbook.Sheets("Ham Kağıt").Range("E2:E" & sonSatir)
+
+End Sub
+
+
+
