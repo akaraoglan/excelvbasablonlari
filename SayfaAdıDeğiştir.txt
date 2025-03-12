@@ -1,0 +1,8 @@
+Sub SayfaAdlariniDegistir()
+    ' "deneme" sayfasının adını "mamul" olarak değiştir
+    Sheets("deneme").Name = "mamul"
+    
+    ' "deneme1" sayfasının adını "Diğer (Ticari Mallar)" olarak değiştir
+    Sheets("deneme1").Name = "Diğer (Ticari Mallar)"
+End Sub
+
