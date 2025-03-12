@@ -1,0 +1,92 @@
+'5000 MALZEMESİ 1. ADIM
+
+Sub RunSAPScript()
+    Dim SapGuiAuto As Object
+    Dim application As Object
+    Dim connection As Object
+    Dim session As Object
+    Dim i As Integer
+    Dim Lastrow As Long
+    Dim deger As String
+
+    ' SAP GUI oturumunu başlat
+    On Error Resume Next ' Hataları geçici olarak yok say
+    Set SapGuiAuto = GetObject("SAPGUI")
+    If SapGuiAuto Is Nothing Then
+        MsgBox "SAP GUI açık değil!", vbCritical
+        Exit Sub
+    End If
+    Set application = SapGuiAuto.GetScriptingEngine
+    If application Is Nothing Then
+        MsgBox "SAP Scripting motoru bulunamadı!", vbCritical
+        Exit Sub
+    End If
+
+    ' Bağlantıyı al
+    Set connection = application.Children(0)
+    If connection Is Nothing Then
+        MsgBox "Aktif bir SAP bağlantısı bulunamadı!", vbCritical
+        Exit Sub
+    End If
+
+    ' Oturumu al
+    Set session = connection.Children(0)
+    If session Is Nothing Then
+        MsgBox "SAP oturumu başlatılamadı!", vbCritical
+        Exit Sub
+    End If
+
+    ' SAP ekranını büyüt
+    session.findById("wnd[0]").maximize
+
+    ' Sayfadaki son satırı bul
+    Lastrow = ThisWorkbook.Sheets("Sayfa1").Cells(ThisWorkbook.Sheets("Sayfa1").Rows.Count, 1).End(xlUp).Row
+
+    ' Satırlar arasında döngü
+    For i = 2 To Lastrow ' Burada döngünün kaç kez tekrar edeceğini belirleyin. Örneğin, 10 satıra kadar döngü yapar.
+        deger = ThisWorkbook.Sheets("Sayfa1").Cells(i, 1).Value
+        deger1 = ThisWorkbook.Sheets("Sayfa1").Cells(i, 3).Value
+        deger2 = ThisWorkbook.Sheets("Sayfa1").Cells(i, 2).Value
+        
+        
+
+        ' SAP işlemleri
+session.findById("wnd[0]").maximize
+session.findById("wnd[0]/usr/ctxtRMMG1-MATNR").Text = deger
+session.findById("wnd[0]/usr/ctxtRMMG1-MATNR").CaretPosition = 9
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[1]").sendVKey 0
+session.findById("wnd[1]/usr/ctxtRMMG1-WERKS").Text = deger1
+session.findById("wnd[1]").sendVKey 0
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/ctxtMBEW-BKLAS").Text = "5000"
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/ctxtMBEW-EKLAS").Text = "SIT5"
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/ctxtMBEW-EKLAS").SetFocus
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/ctxtMBEW-EKLAS").CaretPosition = 4
+session.findById("wnd[0]").sendVKey 4
+session.findById("wnd[1]").Close
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/subSUBCURR:SAPLCKMMAT:0200/txtCKMMAT_DISPLAY-STPRS_1").Text = "10000"
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/subSUBCURR:SAPLCKMMAT:0200/txtCKMMAT_DISPLAY-PEINH_1").Text = "1000"
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/subSUBCURR:SAPLCKMMAT:0200/txtCKMMAT_DISPLAY-PEINH_1").SetFocus
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP27/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLCKMMAT:0010/tabsTABS/tabpPPLF/ssubSUBML:SAPLCKMMAT:0100/subSUBCURR:SAPLCKMMAT:0200/txtCKMMAT_DISPLAY-PEINH_1").CaretPosition = 6
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP29/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2904/chkMBEW-HKMAT").Selected = True
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP29/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2904/ctxtMARC-PRCTR").Text = deger2
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP29/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2904/ctxtMARC-PRCTR").SetFocus
+session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP29/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2904/ctxtMARC-PRCTR").CaretPosition = 4
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[1]/usr/btnSPOP-OPTION1").Press
+
+
+    Next i
+End Sub
+
+
+
+
+
+
+
