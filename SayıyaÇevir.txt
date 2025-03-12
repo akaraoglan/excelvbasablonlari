@@ -1,0 +1,21 @@
+Sub SayiyaCevirKontrol()
+    Dim wsKontrol As Worksheet
+    Dim sonSatir As Long
+    Dim i As Long
+    
+    ' Kontrol sayfasını tanımla
+    Set wsKontrol = ThisWorkbook.Sheets("Kontrol")
+    
+    ' A sütunundaki son dolu satırı bul
+    sonSatir = wsKontrol.Cells(wsKontrol.Rows.Count, "A").End(xlUp).Row
+    
+    ' Başlık hariç A2'den itibaren sayıya çevirme işlemi
+    For i = 2 To sonSatir
+        ' Hücreyi sayıya çevir
+        If IsNumeric(wsKontrol.Cells(i, 1).Value) Then
+            wsKontrol.Cells(i, 1).Value = Val(wsKontrol.Cells(i, 1).Value)
+        End If
+    Next i
+End Sub
+
+
