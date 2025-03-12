@@ -1,0 +1,21 @@
+Sub ZimparaliKontrol()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim i As Long
+    
+    ' "Mamul" sayfasını seçiyoruz
+    Set ws = ThisWorkbook.Sheets("Mamul")
+    
+    ' K sütununda son satırı buluyoruz
+    lastRow = ws.Cells(ws.Rows.Count, "K").End(xlUp).Row
+    
+    ' K sütunundaki her hücreyi kontrol ediyoruz
+    For i = 2 To lastRow ' Başlık hariç (başlık 1. satırda)
+        If InStr(1, ws.Cells(i, "K").Value, "Zımparalı", vbTextCompare) > 0 Then
+            ' Eğer "Zımparalı" kelimesi varsa, Q sütununa 1 yazıyoruz
+            ws.Cells(i, "Q").Value = 1
+        End If
+    Next i
+End Sub
+
+
