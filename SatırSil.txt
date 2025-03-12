@@ -1,0 +1,11 @@
+Sub Satırsil()
+    Dim ws As Worksheet
+    Dim newWs As Worksheet
+    
+    ' "data" sayfasını al
+    Set ws = ThisWorkbook.Sheets("data")
+    
+    ' İlk 4 satırı sil
+    ws.Rows("1:4").Delete
+    End Sub
+
