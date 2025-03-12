@@ -1,0 +1,11 @@
+Sub SutunTemizle()
+
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Data")
+
+    ws.Columns("A:A").Clear 
+
+End Sub
+
+
+
