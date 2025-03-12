@@ -1,0 +1,26 @@
+
+
+Sub FormülEkle()
+
+    Dim sonSatir As Long
+    Dim i As Long
+    Dim sayfa As Worksheet
+
+    ' "Mamul" adlı sayfayı ayarla
+    Set sayfa = ThisWorkbook.Sheets("Mamul")
+
+    ' S sütunundaki son dolu satırı bul
+    sonSatir = sayfa.Cells(sayfa.Rows.Count, "S").End(xlUp).Row
+
+    ' S sütununu tara
+    For i = 1 To sonSatir
+        ' Eğer hücredeki değer "M2" ise
+        If sayfa.Cells(i, "S").Value = "M2" Then
+            ' W sütunundaki karşılık gelen hücreye formülü yaz
+            sayfa.Cells(i, "W").Formula = "=R" & i & "/(O" & i & "*P" & i & ")*1000000"
+        End If
+    Next i
+
+    MsgBox "Formüller eklendi!", vbInformation
+
+End Sub
