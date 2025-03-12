@@ -1,0 +1,68 @@
+Sub Verileri_Dagit()
+    Dim ws As Worksheet
+    Dim deneme As Worksheet
+    Dim deneme2 As Worksheet
+  
+    Dim lastRow As Long
+    Dim i As Long
+    Dim value As String
+    Dim headerRow As Range
+    
+    ' Verilerin bulunduğu sayfa (aktif sayfa)
+    Set ws = ThisWorkbook.Sheets("data")
+    
+    ' Başlık satırını (1. satır) belirleyelim
+    Set headerRow = ws.Rows(1)
+    
+    ' Sayfaların var olup olmadığını kontrol et ve varsa temizle, yoksa oluştur
+    On Error Resume Next
+    Set deneme = ThisWorkbook.Sheets("deneme")
+    Set deneme2 = ThisWorkbook.Sheets("deneme2")
+  
+    On Error GoTo 0
+    
+    ' Sayfa yoksa oluştur
+    If deneme Is Nothing Then
+        Set deneme = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        deneme.Name = "deneme"
+    Else
+        deneme.Cells.Clear ' Sayfayı temizle
+    End If
+    
+    If deneme2 Is Nothing Then
+        Set deneme2 = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        deneme2.Name = "deneme2"
+    Else
+        deneme2.Cells.Clear ' Sayfayı temizle
+    End If
+    
+    
+    
+    ' Başlık satırını her sayfaya kopyala
+    headerRow.Copy Destination:=deneme.Rows(1)
+    headerRow.Copy Destination:=deneme2.Rows(1)
+
+    
+    ' Son satırı bulalım
+    lastRow = ws.Cells(ws.Rows.Count, "K").End(xlUp).Row
+    
+    ' Her satırı kontrol ediyoruz
+    For i = 2 To lastRow ' 1. satır başlık olduğu için 2. satırdan başlıyoruz
+        value = ws.Cells(i, "K").value
+        
+        If value = "MG0001" Or value = "MG0002" Or value = "MG0003" Or value = "MG0004" Or value = "MG0005" Or value = "MG0006" Or value = "MG0007" Or value = "MG0008" Then
+            ws.Rows(i).Copy Destination:=deneme.Rows(deneme.Cells(deneme.Rows.Count, 1).End(xlUp).Row + 1)
+        Else
+            ws.Rows(i).Copy Destination:=deneme2.Rows(deneme2.Cells(deneme2.Rows.Count, 1).End(xlUp).Row + 1)
+        
+        End If
+    Next i
+End Sub
+
+
+
+
+
+
+
+
