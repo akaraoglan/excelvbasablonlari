@@ -1,0 +1,3 @@
+Sub HucreyeDegerAtama()
+Sheets("Data").Range("A1").Value = "OrnekDeger"
+End Sub
