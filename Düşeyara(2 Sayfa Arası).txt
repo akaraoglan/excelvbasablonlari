@@ -1,0 +1,44 @@
+Sub EslesenVerileriGetir()
+    Dim wsData As Worksheet
+    Dim wsHazirlik As Worksheet
+    Dim lastRowData As Long
+    Dim lastRowHazirlik As Long
+    Dim i As Long, j As Long
+    Dim searchValue As Variant
+    Dim resultValue As Variant
+    
+    ' Sayfaları tanımla
+    Set wsData = ThisWorkbook.Sheets("data")
+    Set wsHazirlik = ThisWorkbook.Sheets("Hazırlık")
+    
+    ' Hazırlık sayfasındaki A sütunundaki son satırı bul
+    lastRowHazirlik = wsHazirlik.Cells(wsHazirlik.Rows.Count, "A").End(xlUp).Row
+    
+    ' Data sayfasındaki D sütunundaki son satırı bul
+    lastRowData = wsData.Cells(wsData.Rows.Count, "D").End(xlUp).Row
+    
+    ' Hazırlık sayfasındaki A sütunundaki her bir değeri tara
+    For i = 2 To lastRowHazirlik ' Başlangıç satırı 2, çünkü A1 başlık satırıdır
+        searchValue = wsHazirlik.Cells(i, "A").Value ' Hazırlık sayfasındaki A sütunu değeri
+        
+        ' Data sayfasındaki D sütununda arama yap
+        For j = 2 To lastRowData ' Başlangıç satırı 2, çünkü D1 başlık satırıdır
+            If wsData.Cells(j, "D").Value = searchValue Then
+                ' Eşleşme bulunursa, Data sayfasındaki J sütunundaki karşılık değeri al
+                resultValue = wsData.Cells(j, "J").Value
+                ' Sonuç değerini Hazırlık sayfasındaki C sütununa yaz
+                wsHazirlik.Cells(i, "C").Value = resultValue
+                Exit For ' Eşleşme bulunduğunda başka bir işlem yapmaya gerek yok
+            End If
+        Next j
+    Next i
+     MsgBox "1. ADIM TAMAMLANDI. MALZEME KODLARINI MM60 İŞLEM KODUNA YAPIŞTIRIN VE MALZEME İSİMLERİNİ YENİ BİR SAYFAYA ALINIZ", vbInformation
+End Sub
+
+
+
+
+
+
+
+
