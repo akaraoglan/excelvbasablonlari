@@ -1,0 +1,16 @@
+Sub SayfaOlustur()
+
+    ' Sayfa isimlerini bir diziye atayın
+    Dim sayfaIsimleri As Variant
+    sayfaIsimleri = Array("ambalaj", "ham kağıt", "boya")
+
+    ' Her sayfa ismini döngüye alın ve sayfa oluşturun
+    Dim i As Integer
+    For i = LBound(sayfaIsimleri) To UBound(sayfaIsimleri)
+        Sheets.Add After:=Sheets(Sheets.Count) ' En sona yeni sayfa ekle
+        ActiveSheet.Name = sayfaIsimleri(i) ' Sayfanın adını ayarla
+    Next i
+
+    MsgBox "Sayfalar başarıyla oluşturuldu.", vbInformation
+
+End Sub
