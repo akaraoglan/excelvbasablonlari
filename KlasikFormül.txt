@@ -1,0 +1,17 @@
+Sub FillFormula()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim i As Long
+    
+    ' "MAMUL" sayfasını seç
+    Set ws = ThisWorkbook.Sheets("MAMUL")
+    
+    ' P sütunundaki son dolu satırı bul
+    lastRow = ws.Cells(ws.Rows.Count, "P").End(xlUp).Row
+    
+    ' Formülü T sütununa uygula
+    For i = 2 To lastRow
+        ws.Cells(i, "T").Formula = "=O" & i & "*P" & i & "*R" & i & "/1000000"
+    Next i
+End Sub
+
