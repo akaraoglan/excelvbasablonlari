@@ -1,0 +1,15 @@
+Sub YinelenenleriKaldirHazirlik()
+    Dim wsHazirlik As Worksheet
+    Dim sonSatir As Long
+    
+    ' Hazırlık sayfasını tanımla
+    Set wsHazirlik = ThisWorkbook.Sheets("Hazırlık")
+    
+    ' A sütunundaki son dolu satırı bul
+    sonSatir = wsHazirlik.Cells(wsHazirlik.Rows.Count, "A").End(xlUp).Row
+    
+    ' A sütunundaki yinelenenleri kaldır
+    wsHazirlik.Range("A1:A" & sonSatir).RemoveDuplicates Columns:=1, Header:=xlNo
+    
+End Sub
+
