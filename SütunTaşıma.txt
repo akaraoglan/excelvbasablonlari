@@ -1,0 +1,11 @@
+Sub MoveColumnAFtoN_Hazirlik()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Hazırlık") ' "Hazırlık" sayfasını belirliyoruz
+    
+    ' AF sütununu N sütununa taşıma
+    ws.Columns("AF:AF").Cut
+    ws.Columns("N:N").Insert Shift:=xlToRight
+End Sub
+
+
+
